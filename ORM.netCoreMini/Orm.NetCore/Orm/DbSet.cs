@@ -54,6 +54,11 @@
             return this.Entities.GetEnumerator();
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
         public bool Remove(TEntity item)
         {
             if (item == null)
@@ -69,10 +74,6 @@
             return removedSuccesfully;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {

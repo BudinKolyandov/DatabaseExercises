@@ -105,6 +105,27 @@
             return rows;
         }
 
+        public IEnumerable<string> FetchColumnNames(string tableName)
+        {
+            var rows = new List<string>();
+
+            var queryText = $@"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}'";
+
+            using (var query = CreateCommand(queryText))
+            {
+                using (var reader = query.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var column = reader.GetString(0);
+                        rows.Add(column);
+                    }
+                }
+            }
+
+            return rows;
+        }
+
         public void InsertEntities<T>(IEnumerable<T> entities, string tableName, string[] columns)
             where T : class
         {

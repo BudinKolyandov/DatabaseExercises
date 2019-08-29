@@ -3,6 +3,8 @@
     using System.Linq;
     using System.Collections.Generic;
     using System;
+    using System.Reflection;
+    using System.ComponentModel.DataAnnotations;
 
     internal class ChangeTracker<T>
         where T : class, new()
@@ -31,7 +33,7 @@
 
         public void Delete(T item) => this.deleted.Add(item);
 
-        private List<T> CloneEntites(IEnumerable<T> entities)
+        private static List<T> CloneEntites(IEnumerable<T> entities)
         {
             var clonedEntities = new List<T>();
 
@@ -51,6 +53,52 @@
                 clonedEntities.Add(clonedEntity);
             }
             return clonedEntities;
+        }
+
+
+        public IEnumerable<T> GetModifiedEntities(DbSet<T> dbSet)
+        {
+            var modifiedEntities = new List<T>();
+
+            var primaryKeys = typeof(T).GetProperties()
+                .Where(pi => pi.HasAttribute<KeyAttribute>())
+                .ToArray();
+
+            foreach (var proxyEntity in this.AllEntites)
+            {
+                var primaryKeyValues = GetPrimaryKeyValues(primaryKeys, proxyEntity)
+                    .ToArray();
+
+                var enntity = dbSet.Entities
+                    .Single(e => GetPrimaryKeyValues(primaryKeys, e)
+                    .SequenceEqual(primaryKeyValues));
+
+                var isModified = IsModified(proxyEntity, enntity);
+                if (isModified)
+                {
+                    modifiedEntities.Add(enntity);
+                }
+            }
+            return modifiedEntities;
+        }
+
+        private static IEnumerable<object> GetPrimaryKeyValues(IEnumerable<PropertyInfo> primaryKeys, T entity)
+        {
+            return primaryKeys.Select(pk => pk.GetValue(entity));
+        }
+
+        private static bool IsModified(T entity, T proxyEntity)
+        {
+            var monitoredProperties = typeof(T).GetProperties()
+                .Where(pi => DbContext.AllowedSqlTypes.Contains(pi.PropertyType));
+
+            var modifiedProperties = monitoredProperties
+                .Where(pi => !Equals(pi.GetValue(entity), pi.GetValue(proxyEntity)))
+                .ToArray();
+
+            var isModified = modifiedProperties.Any();
+            return isModified;
+
         }
     }
 }
