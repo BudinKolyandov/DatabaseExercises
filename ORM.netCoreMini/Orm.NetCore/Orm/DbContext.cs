@@ -68,13 +68,13 @@
                     {
                         var dbSetType = dbSet.GetType().GetGenericArguments().First();
 
-                        var presistMethod = typeof(DbContext)
+                        var persistMethod = typeof(DbContext)
                             .GetMethod("Persist", BindingFlags.Instance | BindingFlags.NonPublic)
                             .MakeGenericMethod(dbSetType);
 
                         try
                         {
-                            presistMethod.Invoke(this, new object[] { dbSet });
+                            persistMethod.Invoke(this, new object[] { dbSet });
                         }
                         catch (TargetInvocationException tie)
                         {
@@ -96,7 +96,7 @@
             }
         }
 
-        private void Presist<TEntity>(DbSet<TEntity> dbSet)
+        private void Persist<TEntity>(DbSet<TEntity> dbSet)
             where TEntity : class, new()
         {
             var tableName = GetTableName(typeof(TEntity));
@@ -125,13 +125,9 @@
         
         private string GetTableName(Type tableType)
         {
-            var tableName = ((TableAttribute) Attribute
-                .GetCustomAttribute(tableType, typeof (TableAttribute)))
-                .Name;
-            if (tableName == null)
-            {
-                tableName = this.dbSetProperties[tableType].Name;
-            }
+            var tableName = this.dbSetProperties[tableType].Name;
+            
+              
             return tableName;
         }
 
@@ -250,7 +246,7 @@
                 foreach (var entity in dbSet)
                 {
                     var foreignKeyValue = foreignKey.GetValue(entity);
-                    var navigationPropertyValue = ((IEnumerable<object>)navigationDbSet)
+                    var navigationPropertyValue = ((IEnumerable<object>) navigationDbSet)
                         .First(currentNavigationProperty =>
                         navigationPrimaryKey.GetValue(currentNavigationProperty).Equals(foreignKeyValue));
 

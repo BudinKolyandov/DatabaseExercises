@@ -12,6 +12,8 @@
         [Required]
         public string FirstName { get; set; }
 
+        public string MiddleName { get; set; }
+
         [Required]
         public string LastName { get; set; }
 
@@ -19,9 +21,9 @@
 
         [ForeignKey(nameof(Department))]
         public int DepartmentId { get; set; }
-        
+
         public Department Department { get; set; }
 
-        public ICollection<EmployeesWorkingOnProjects> EmployeesWorkingOnProjects { get; }
+        public ICollection<EmployeesProjects> EmployeesProjects { get; }
     }
 }

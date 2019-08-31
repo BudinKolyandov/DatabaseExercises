@@ -207,7 +207,7 @@
                     primaryKeyProperties.Select(pk => $"{pk.Name} = @{pk.Name}"));
 
                 var query = string.Format(
-                    "UPDATE {0} SET{1} WHERE{2}",
+                    "UPDATE {0} SET {1} WHERE {2}",
                     tableName,
                     columnsSql,
                     primaryKeySql);

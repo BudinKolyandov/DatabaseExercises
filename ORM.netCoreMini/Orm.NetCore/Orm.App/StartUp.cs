@@ -8,22 +8,24 @@
     {
         static void Main(string[] args)
         {
-            var connectionString = @"Server=DESKTOP-J1971AU\SQLEXPRESS;Database=OrmTest;Integrated Security = true";
+            var connectionString = @"Server=DESKTOP-J1971AU\SQLEXPRESS;Database = MiniORM;Integrated Security = true";
 
             var context = new OrmDbContext(connectionString);
 
             context.Employees.Add(new Employee
             {
-                FirstName = "Lucas",
-                LastName = "Jones",
+                FirstName = "Peter",
+                LastName = "Pan",
                 DepartmentId = context.Departments.First().Id,
                 IsEmployed = true
             });
 
-            var employee = context.Employees.Last();
+            var emplyee = context.Employees.First();
+            emplyee.FirstName = "New";
 
-            employee.FirstName = "Jessica";
             context.SaveChanges();
+
+
         }
     }
 }
