@@ -6,7 +6,7 @@
     {
         public static void Main(string[] args)
         {
-            var connection = new HospitalContext();
+            
 
         }
     }

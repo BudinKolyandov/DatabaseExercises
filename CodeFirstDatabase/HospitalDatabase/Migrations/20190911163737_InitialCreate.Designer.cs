@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalDatabase.Migrations
 {
     [DbContext(typeof(HospitalContext))]
-    [Migration("20190906082957_InitialCreate")]
+    [Migration("20190911163737_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,25 @@ namespace HospitalDatabase.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Diagnoses");
+                });
+
+            modelBuilder.Entity("HospitalDatabase.Data.Models.Doctor", b =>
+                {
+                    b.Property<int>("DoctorId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .IsUnicode(true);
+
+                    b.Property<string>("Specialty")
+                        .HasMaxLength(100)
+                        .IsUnicode(true);
+
+                    b.HasKey("DoctorId");
+
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("HospitalDatabase.Data.Models.Medicament", b =>
@@ -118,9 +137,13 @@ namespace HospitalDatabase.Migrations
 
                     b.Property<DateTime>("Date");
 
+                    b.Property<int>("DoctorId");
+
                     b.Property<int>("PatientId");
 
                     b.HasKey("VisitationId");
+
+                    b.HasIndex("DoctorId");
 
                     b.HasIndex("PatientId");
 
@@ -150,6 +173,11 @@ namespace HospitalDatabase.Migrations
 
             modelBuilder.Entity("HospitalDatabase.Data.Models.Visitation", b =>
                 {
+                    b.HasOne("HospitalDatabase.Data.Models.Doctor", "Doctor")
+                        .WithMany("Visitations")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("HospitalDatabase.Data.Models.Patient", "Patient")
                         .WithMany("Visitations")
                         .HasForeignKey("PatientId")

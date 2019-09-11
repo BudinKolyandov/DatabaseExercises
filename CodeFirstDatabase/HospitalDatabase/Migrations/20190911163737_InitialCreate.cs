@@ -9,6 +9,20 @@ namespace HospitalDatabase.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Doctors",
+                columns: table => new
+                {
+                    DoctorId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Specialty = table.Column<string>(maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Doctors", x => x.DoctorId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Medicaments",
                 columns: table => new
                 {
@@ -91,11 +105,18 @@ namespace HospitalDatabase.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     Comments = table.Column<string>(maxLength: 250, nullable: true),
+                    DoctorId = table.Column<int>(nullable: false),
                     PatientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Visitations", x => x.VisitationId);
+                    table.ForeignKey(
+                        name: "FK_Visitations_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "DoctorId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Visitations_Patients_PatientId",
                         column: x => x.PatientId,
@@ -113,6 +134,11 @@ namespace HospitalDatabase.Migrations
                 name: "IX_PatientMedicaments_MedicamentId",
                 table: "PatientMedicaments",
                 column: "MedicamentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visitations_DoctorId",
+                table: "Visitations",
+                column: "DoctorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Visitations_PatientId",
@@ -133,6 +159,9 @@ namespace HospitalDatabase.Migrations
 
             migrationBuilder.DropTable(
                 name: "Medicaments");
+
+            migrationBuilder.DropTable(
+                name: "Doctors");
 
             migrationBuilder.DropTable(
                 name: "Patients");
