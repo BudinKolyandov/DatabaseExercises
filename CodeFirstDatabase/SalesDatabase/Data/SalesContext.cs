@@ -31,6 +31,11 @@
             modelBuilder
                 .Entity<Sale>()
                 .HasKey(s => s.SaleId);
+
+            modelBuilder
+                .Entity<Sale>()
+                .Property(p => p.Date)
+                .HasDefaultValueSql("GETDATE()");
         }
 
         private void ConfigureStoreEntity(ModelBuilder modelBuilder)
@@ -89,6 +94,11 @@
                 .HasMaxLength(50)
                 .IsUnicode()
                 .IsRequired();
+
+            modelBuilder
+                .Entity<Product>()
+                .Property(p => p.Description)
+                .HasMaxLength(50);
 
             modelBuilder
                 .Entity<Product>()
