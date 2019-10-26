@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace ChangeTownNamesCasing
 {
-    class Program
+    public class Program
     {
         public const string TownsUpdate = @"UPDATE Towns
                                             SET Name = UPPER(Name)
@@ -17,7 +17,7 @@ namespace ChangeTownNamesCasing
                                              WHERE c.Name = @countryName";
 
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             string country = Console.ReadLine();
 

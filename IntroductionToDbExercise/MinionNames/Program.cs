@@ -4,9 +4,9 @@ using System.Data.SqlClient;
 
 namespace MinionNames
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             int id = int.Parse(Console.ReadLine());
 

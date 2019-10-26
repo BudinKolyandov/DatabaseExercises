@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace AddMinion
 {
-    class Program
+    public class Program
     {
         public const string SelectMinionId = "SELECT Id FROM Minions WHERE Name = @Name";
 
@@ -22,7 +22,7 @@ namespace AddMinion
 
         public const string SelectTownId = "SELECT Id FROM Towns WHERE Name = @townName";
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             int townId = -1;
             int minionId = -1;
