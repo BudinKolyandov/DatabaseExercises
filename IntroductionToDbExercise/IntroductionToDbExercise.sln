@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoveVillain", "RemoveVill
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintAllMinionNames", "PrintAllMinionNames\PrintAllMinionNames.csproj", "{64390A7A-C68E-4C49-AE35-7F157BD31D1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncreaseMinionAge", "IncreaseMinionAge\IncreaseMinionAge.csproj", "{9EA6A69B-96E8-4ADE-A136-BF998F19307F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncreaseAgeStoredProcedure", "IncreaseAgeStoredProcedure\IncreaseAgeStoredProcedure.csproj", "{45793940-F127-47CC-8E28-372BEF635285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{64390A7A-C68E-4C49-AE35-7F157BD31D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64390A7A-C68E-4C49-AE35-7F157BD31D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64390A7A-C68E-4C49-AE35-7F157BD31D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA6A69B-96E8-4ADE-A136-BF998F19307F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA6A69B-96E8-4ADE-A136-BF998F19307F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA6A69B-96E8-4ADE-A136-BF998F19307F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA6A69B-96E8-4ADE-A136-BF998F19307F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45793940-F127-47CC-8E28-372BEF635285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45793940-F127-47CC-8E28-372BEF635285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45793940-F127-47CC-8E28-372BEF635285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45793940-F127-47CC-8E28-372BEF635285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
