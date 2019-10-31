@@ -33,6 +33,9 @@ namespace SoftUni
                 var getEmployee = GetEmployee147(context);
                 Console.WriteLine(getEmployee);
 
+                var departmentsWithFiveOrMoreEmployees = GetDepartmentsWithMoreThan5Employees(context);
+                Console.WriteLine(departmentsWithFiveOrMoreEmployees);
+
             }
         }
 
@@ -248,7 +251,39 @@ namespace SoftUni
             return sb.ToString().TrimEnd();
         }
 
+        public static string GetDepartmentsWithMoreThan5Employees(SoftUniContext context)
+        {
+            StringBuilder sb = new StringBuilder();
 
+            var departments = context.Departments
+                .Where(x => x.Employees.Count > 5)
+                .OrderBy(x => x.Employees.Count)
+                .ThenBy(d => d.Name)
+                .Select(d => new
+                {
+                    d.Name,
+                    managerFullName = d.Manager.FirstName + " " + d.Manager.LastName,
+                    emplyees = d.Employees.Select(e => new
+                    {
+                        e.FirstName,
+                        e.LastName,
+                        e.JobTitle
+                    })
+                    .OrderBy(x=>x.FirstName)
+                    .ThenBy(x=>x.LastName)
+                });
+
+            foreach (var department in departments)
+            {
+                sb.AppendLine($"{department.Name} - {department.managerFullName}");
+                foreach (var employee in department.emplyees)
+                {
+                    sb.AppendLine($"{employee.FirstName} {employee.LastName} - {employee.JobTitle}");
+                }
+            }
+
+            return sb.ToString().TrimEnd();
+        }
 
 
     }
