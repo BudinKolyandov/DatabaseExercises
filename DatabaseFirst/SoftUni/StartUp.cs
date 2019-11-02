@@ -36,6 +36,10 @@ namespace SoftUni
                 var departmentsWithFiveOrMoreEmployees = GetDepartmentsWithMoreThan5Employees(context);
                 Console.WriteLine(departmentsWithFiveOrMoreEmployees);
 
+                var latestProjects = GetLatestProjects(context);
+                Console.WriteLine(latestProjects);
+
+
             }
         }
 
@@ -284,6 +288,33 @@ namespace SoftUni
 
             return sb.ToString().TrimEnd();
         }
+
+        public static string GetLatestProjects(SoftUniContext context)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var projects = context.Projects
+                .OrderByDescending(x => x.StartDate)
+                .Take(10)
+                .Select(p => new
+                {
+                    p.Name,
+                    p.Description,
+                    p.StartDate
+                })
+                .OrderBy(p => p.Name)
+                .ToList();
+
+            foreach (var project in projects)
+            {
+                sb.AppendLine($"{project.Name}");
+                sb.AppendLine($"{project.Description}");
+                sb.AppendLine($"{project.StartDate.ToString("M/d/yyyy h:mm:ss tt")}");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
 
 
     }
