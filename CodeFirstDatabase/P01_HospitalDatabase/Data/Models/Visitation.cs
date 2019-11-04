@@ -1,4 +1,4 @@
-﻿namespace HospitalDatabase.Data.Models
+﻿namespace P01_HospitalDatabase.Data.Models
 {
     using System;
     public class Visitation

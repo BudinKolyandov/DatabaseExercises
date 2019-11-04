@@ -1,4 +1,4 @@
-﻿namespace HospitalDatabase.Data.Models
+﻿namespace P01_HospitalDatabase.Data.Models
 {
     using System.Collections.Generic;
 
@@ -22,7 +22,7 @@
 
         public string Email { get; set; }
 
-        public bool HasInsuarance { get; set; }
+        public bool HasInsurance { get; set; }
 
         public ICollection<Visitation> Visitations { get; set; }
 

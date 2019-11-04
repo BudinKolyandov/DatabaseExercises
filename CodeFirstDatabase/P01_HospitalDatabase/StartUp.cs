@@ -1,4 +1,4 @@
-﻿namespace HospitalDatabase
+﻿namespace P01_HospitalDatabase
 {
     using Data;
 
@@ -6,7 +6,7 @@
     {
         public static void Main(string[] args)
         {
-            
+
 
         }
     }

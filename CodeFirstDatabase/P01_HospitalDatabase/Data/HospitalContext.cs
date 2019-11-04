@@ -1,4 +1,4 @@
-﻿namespace HospitalDatabase.Data
+﻿namespace P01_HospitalDatabase.Data
 {
     using Models;
     using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,6 @@
         public DbSet<Visitation> Visitations { get; set; }
         public DbSet<Diagnose> Diagnoses { get; set; }
         public DbSet<Medicament> Medicaments { get; set; }
-        public DbSet<Doctor> Doctors { get; set; }
         public DbSet<PatientMedicament> PatientMedicaments { get; set; }
 
 
@@ -30,33 +29,9 @@
             ConfigureMedicamentEntity(modelBuilder);
 
             ConfigurePatientMedicamentEntity(modelBuilder);
-
-            ConfigureDoctorEntity(modelBuilder);
         }
 
-        private void ConfigureDoctorEntity(ModelBuilder modelBuilder)
-        {
-            modelBuilder
-                .Entity<Doctor>()
-                .HasKey(d => d.DoctorId);
 
-            modelBuilder
-                .Entity<Doctor>()
-                .Property(d => d.Name)
-                .HasMaxLength(100)
-                .IsUnicode();
-
-            modelBuilder
-                .Entity<Doctor>()
-                .Property(d => d.Specialty)
-                .HasMaxLength(100)
-                .IsUnicode();
-
-            modelBuilder
-                .Entity<Doctor>()
-                .HasMany(d => d.Visitations)
-                .WithOne(d => d.Doctor);
-        }
 
         private void ConfigurePatientMedicamentEntity(ModelBuilder modelBuilder)
         {
@@ -109,8 +84,8 @@
                 .Property(d => d.Comments)
                 .HasMaxLength(250)
                 .IsUnicode();
-            
-            
+
+
         }
 
         private void ConfigureVisitationEntity(ModelBuilder modelBuilder)
