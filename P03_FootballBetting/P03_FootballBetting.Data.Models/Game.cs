@@ -1,4 +1,4 @@
-﻿namespace Models
+﻿namespace P03_FootballBetting.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -7,9 +7,9 @@
     {
         public Game()
         {
-            this.Bets = new List<Bet>();
+            this.PlayerStatistics = new HashSet<PlayerStatistic>();
+            this.Bets = new HashSet<Bet>();
         }
-
         public int GameId { get; set; }
 
         public int HomeTeamId { get; set; }
@@ -22,7 +22,7 @@
 
         public int AwayTeamGoals { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime DateTime { get; set; }
 
         public double HomeTeamBetRate { get; set; }
 
@@ -30,8 +30,11 @@
 
         public double DrawBetRate { get; set; }
 
-        public double Result { get; set; }
+        public string Result { get; set; }
+
+        public ICollection<PlayerStatistic> PlayerStatistics { get; set; }
 
         public ICollection<Bet> Bets { get; set; }
+
     }
 }
