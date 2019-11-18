@@ -51,6 +51,19 @@
                       .WithOne(x => x.Seller)
                       .HasForeignKey(x => x.SellerId);
             });
+
+            modelBuilder.Entity<CategoryProduct>(x =>
+            {
+                x.HasKey(cp => new { cp.CategoryId, cp.ProductId });
+
+                x.HasOne(cp => cp.Product)
+                .WithMany(p => p.CategoryProducts)
+                .HasForeignKey(ps => ps.ProductId);
+
+                x.HasOne(cp => cp.Category)
+                .WithMany(c => c.CategoryProducts)
+                .HasForeignKey(ps => ps.CategoryId);
+            });
         }
     }
 }
