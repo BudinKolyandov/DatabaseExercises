@@ -17,6 +17,6 @@ namespace CarDealer.Models
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
 
-        public ICollection<PartCar> PartCars { get; set; } = new List<PartCar>();
+        public ICollection<PartCar> PartCars { get; set; }
     }
 }
